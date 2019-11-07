@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.how2java.mapper.PositionMapper">
+    <!--<insert id="add" parameterType="HllcPost" >-->
+	        <!--insert into category_ ( name ) values (#{name})-->
+	    <!--</insert>-->
+
+    <delete id="deletePosition" parameterType="HllcPost" >
+	        delete from hllc_post where poID= #{id}
+	    </delete>
+
+    <!--<select id="get" parameterType="_int" resultType="Category">-->
+	        <!--select * from   category_  where id= #{id}-->
+	    <!--</select>-->
+
+    <!--<update id="update" parameterType="Category" >-->
+	        <!--update category_ set name=#{name} where id=#{id}-->
+	    <!--</update>-->
+    <select id="listPosition" parameterType="Map" resultType="HllcPost">
+
+			select * from hllc_post  limit #{offset},#{pageNum}
+
+
+	    </select>
+
+	<select id="findAllCout" resultType="java.lang.Integer">
+		  select count(*) from hllc_post
+
+	    </select>
+
+	<!--查询所有部门的总数-->
+	<select id="findPositionCount" resultType="java.lang.Integer">
+		select count(*) from hllc_post where poName like "%"#{content}"%" or poMessage like "%"#{content}"%"
+
+	    </select>
+	<select id="list" resultType="HllcPost">
+
+			select * from hllc_post  limit #{offset,jdbcType=INTEGER},#{pageNum,jdbcType=INTEGER}
+
+
+	    </select>
+
+
+	<!--查询部门-->
+	<select id="findPosition" parameterType="map" resultType="HllcPost">
+
+		select * from hllc_post where poName like "%"#{content,jdbcType=VARCHAR}"%" or poMessage like "%"#{content,jdbcType=VARCHAR}"%"
+		limit #{offset,jdbcType=INTEGER},#{pageNum,jdbcType=INTEGER}
+	</select>
+
+	<!--增加部门-->
+	<insert id="savaPosition" parameterType="HllcPost">
+		insert into hllc_post(poName,poDate,poMessage) values (#{poName},#{poDate},#{poMessage})
+
+	</insert>
+</mapper>
+
